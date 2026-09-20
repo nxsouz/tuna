@@ -1,0 +1,42 @@
+{
+  "name": "@rb/site",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Storefront — a modular website engine for barber shops, restaurants, retail stores, wedding halls and gyms, with a private order desk on its own subdomain.",
+  "license": "UNLICENSED",
+  "//deps": "Deliberately depends on no @rb/* workspace package. The standalone build is produced by copying this directory out of the monorepo, and a workspace import would make that copy fail to install. The handful of helpers that would otherwise be shared live in src/lib.",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "typecheck": "tsc --noEmit",
+    "db:generate": "drizzle-kit generate",
+    "db:push": "drizzle-kit push",
+    "db:studio": "drizzle-kit studio",
+    "//vend": "Produce the licence-free standalone copy that is sold outright. Run from the repo root as `npm run vend:standalone`.",
+    "vend": "node scripts/vend-standalone.mjs",
+    "//check:data": "Run the repositories against pglite — a real Postgres in-process. Proves the things a typecheck cannot: that cancelling an order puts the stock back, that two customers cannot take the same slot, and that the reports see what was sold.",
+    "check:data": "tsx --import ./scripts/register-loader.mjs scripts/check-data-layer.mts"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "drizzle-orm": "^0.44.6",
+    "jose": "^6.1.0",
+    "next": "^16.0.0",
+    "postgres": "^3.4.7",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "zod": "^4.1.12"
+  },
+  "devDependencies": {
+    "@electric-sql/pglite": "^0.5.8",
+    "@tailwindcss/postcss": "^4.1.14",
+    "@types/node": "^22.19.0",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "drizzle-kit": "^0.31.5",
+    "tailwindcss": "^4.1.14",
+    "typescript": "~5.9.3",
+    "tsx": "^4.19.2"
+  }
+}
